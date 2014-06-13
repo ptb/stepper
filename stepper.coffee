@@ -119,12 +119,12 @@ define ->
         le: 37
         up: 38
         ri: 39
-        do: 40
+        dn: 40
 
       if k is KEYS.up or k is KEYS.pu
         e.preventDefault()
         @step(e.target, 'inc')
-      else if k is KEYS.do or k is KEYS.pd
+      else if k is KEYS.dn or k is KEYS.pd
         e.preventDefault()
         @step(e.target, 'dec')
       else if k is KEYS.ho
