@@ -1,0 +1,60 @@
+$i: 1px
+$t: #007aff
+
+.stepper
+  display: inline-block
+  padding: 0
+  //border: 0 none transparent
+  border: #{1 * $i} solid $t
+  border-radius: #{4 * $i}
+
+  input[type='number'], button
+    text-align: center
+    font-weight: bold
+    line-height: 0.85
+    font-family: Helvetica Neue
+    border: 0 none transparent
+    &:not(:last-child)
+      margin-right: #{-1 * $i}
+      border-right: #{1 * $i} solid $t
+
+  input[type='number']
+    font-size: #{17 * $i}
+    padding: 0
+    max-width: 3em
+    //border-bottom: #{1 * $i} dotted $t
+    border-radius: 0
+    &, &::-webkit-inner-spin-button
+      -webkit-appearance: none
+    &:focus
+      outline: transparent none 0
+
+  button
+    font-size: #{25 * $i}
+    cursor: pointer
+    -webkit-appearance: none
+    -moz-appearance: none
+    -webkit-user-select: none
+    -webkit-touch-callout: none
+    display: inline-block
+    margin: 0
+    padding: 0 #{15 * $i} #{6 * $i}
+    //width: #{45 * $i}
+    //height: #{27 * $i}
+    background-color: #fff
+    color: $t
+    border: 0 solid transparent
+    &:disabled
+      cursor: not-allowed
+      color: transparentize($t, 0.5)
+    &:active:not(:disabled)
+      background-color: transparentize($t, 0.8)
+    &:not(:first-child)
+      border-left: #{1 * $i} solid $t
+
+  *:first-child
+    border-top-left-radius: #{4 * $i}
+    border-bottom-left-radius: #{4 * $i}
+  *:last-child
+    border-top-right-radius: #{4 * $i}
+    border-bottom-right-radius: #{4 * $i}
