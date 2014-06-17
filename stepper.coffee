@@ -24,6 +24,11 @@ define ->
       else
         el.className = el.className.replace(new RegExp('(^|\\b)' + c.split(' ').join('|') + '(\\b|$)', 'gi'), ' ')
 
+    _trigger: (el, e) ->
+      evt = document.createEvent('HTMLEvents')
+      evt.initEvent(e, true, false)
+      el.dispatchEvent(evt)
+
     createButton: (b, c, s) ->
       el = document.createElement(b)
       @_addClass(el, c)
@@ -96,7 +101,8 @@ define ->
         
       @setButtons(el, data)
 
-      return el.value = data.value
+      el.value = data.value
+      @_trigger(el, 'input')
 
     step: (el, change) ->
       data = @getValues(el)
@@ -112,6 +118,7 @@ define ->
       @setValues(el, data)
 
     onClick: (e) =>
+      e.preventDefault()
       el = e.target.parentNode.querySelector(@opts.num)
       @step(el, e.target.className.trim())
 
