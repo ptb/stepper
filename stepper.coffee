@@ -12,9 +12,21 @@ define ->
       minus: '&#8722;'
       plus: '&#43;'
 
+    _addClass: (el, c) ->
+      if (el.classList)
+        el.classList.add(c)
+      else
+        el.className += " #{c}"
+
+    _removeClass: (el, c) ->
+      if el.classList
+        el.classList.remove(c)
+      else
+        el.className = el.className.replace(new RegExp('(^|\\b)' + c.split(' ').join('|') + '(\\b|$)', 'gi'), ' ')
+
     createButton: (b, c, s) ->
       el = document.createElement(b)
-      el.classList.add(c)
+      @_addClass(el, c)
       el.innerHTML = s
       return el
 
@@ -22,8 +34,8 @@ define ->
       parent = el.parentNode
       next = el.nextElementSibling
       wrapper = document.createElement(w)
-      wrapper.classList.add(c)
-      el.classList.remove(c)
+      @_addClass(wrapper, c)
+      @_removeClass(el, c)
       if next
         parent.insertBefore(wrapper, next)
       else
@@ -91,7 +103,7 @@ define ->
       data.orig = data.value
       data.change = change
 
-      switch change
+      switch data.change
         when 'inc' then data.value += data.step
         when 'dec' then data.value -= data.step
         when 'min' then data.value = data.min if data.min
@@ -101,7 +113,7 @@ define ->
 
     onClick: (e) =>
       el = e.target.parentNode.querySelector(@opts.num)
-      @step(el, e.target.className)
+      @step(el, e.target.className.trim())
 
     onInput: (e) =>
       el = e.target
